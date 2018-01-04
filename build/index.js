@@ -1387,6 +1387,8 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -1419,8 +1421,16 @@ var Router = function (_React$Component) {
     key: 'setRoute',
     value: function setRoute(route) {
       this.setState({
-        path: route
+        path: this.formatPath(route)
       });
+    }
+  }, {
+    key: 'formatPath',
+    value: function formatPath(path) {
+      if (path.charAt(0) !== "/") {
+        return "/" + path.toLowerCase();
+      }
+      return path.toLowerCase();
     }
   }, {
     key: 'render',
@@ -1429,8 +1439,15 @@ var Router = function (_React$Component) {
 
       for (var i in children) {
         var child = children[i];
-        if (child.type == _Route2.default && child.props.path === this.state.path) {
-          return _react2.default.createElement(child.props.component, null);
+        if (child.type === _Route2.default && this.formatPath(child.props.path) === this.state.path) {
+          var _child$props = child.props,
+              component = _child$props.component,
+              path = _child$props.path,
+              rest = _objectWithoutProperties(_child$props, ['component', 'path']);
+
+          if (component) {
+            return _react2.default.createElement(child.props.component, rest);
+          }
         }
       }
       return null;

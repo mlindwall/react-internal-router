@@ -18,16 +18,26 @@ export default class Router extends React.Component {
 
   setRoute(route) {
     this.setState({
-      path: route
+      path: this.formatPath(route)
     })
+  }
+
+  formatPath(path) {
+    if (path.charAt(0) !== "/") {
+      return "/" + path.toLowerCase();
+    }
+    return path.toLowerCase();
   }
 
   render() {
     let { children } = this.props;
     for (var i in children) {
       let child = children[i];
-      if (child.type == Route && child.props.path === this.state.path) {
-        return <child.props.component />
+      if (child.type === Route && this.formatPath(child.props.path) === this.state.path) {
+        let { component, path, ...rest } = child.props;
+        if (component) {
+          return <child.props.component { ...rest } />
+        }
       }
     }
     return null;
