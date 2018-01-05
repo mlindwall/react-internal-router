@@ -23,6 +23,9 @@ export default class Router extends React.Component {
   }
 
   formatPath(path) {
+    if (!path) {
+      return "/";
+    }
     if (path.charAt(0) !== "/") {
       return "/" + path.toLowerCase();
     }

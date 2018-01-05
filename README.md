@@ -48,7 +48,7 @@ In order to access the setRoute function you need to retrieve it from the Router
 ```js
 import { PropTypes } from 'prop-types';
 ```
-To access the setRoute function within your component context, you need to add contextTypes tp your component
+To access the setRoute function within your component context, you need to add contextTypes to your component
 ```js
 YourComponentName.contextTypes = {
   setRoute: PropTypes.func

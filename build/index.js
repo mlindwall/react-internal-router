@@ -1427,6 +1427,9 @@ var Router = function (_React$Component) {
   }, {
     key: 'formatPath',
     value: function formatPath(path) {
+      if (!path) {
+        return "/";
+      }
       if (path.charAt(0) !== "/") {
         return "/" + path.toLowerCase();
       }

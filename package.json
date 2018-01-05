@@ -1,6 +1,6 @@
 {
   "name": "react-internal-router",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Internal routing for react",
   "main": "build/index.js",
   "scripts": {
